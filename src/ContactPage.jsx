@@ -19,7 +19,6 @@ const ContactPage = () => {
     }
 
     try {
-      // Send POST request to backend
       const response = await axios.post("http://localhost:8758/api/contact/save", formData);
 
       if (response.status === 200 || response.status === 201) {
@@ -35,112 +34,130 @@ const ContactPage = () => {
   };
 
   return (
-    <div
-      style={{
-        minHeight: "80vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#f4f6f8",
-        padding: "2rem",
-        fontFamily: "Arial, sans-serif",
-      }}
-    >
+    <div style={{ display: "flex", minHeight: "100vh" }}>
+      {/* Left: Contact Form */}
       <div
         style={{
-          width: "100%",
-          maxWidth: "500px",
+          flex: 1,
           backgroundColor: "#fff",
-          padding: "2rem",
-          borderRadius: "10px",
-          boxShadow: "0 4px 20px rgba(0,0,0,0.1)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: "4rem",
+          boxSizing: "border-box",
         }}
       >
-        <h2 style={{ textAlign: "center", marginBottom: "1.5rem", color: "#333" }}>
-          Contact Us
-        </h2>
+        <form
+          onSubmit={handleSubmit}
+          style={{ width: "100%", maxWidth: "500px", display: "flex", flexDirection: "column" }}
+        >
+          <h2 style={{ textAlign: "center", marginBottom: "2rem", color: "#333" }}>
+            Contact Us
+          </h2>
 
-        {successMsg && (
-          <p
+          {successMsg && (
+            <p
+              style={{
+                textAlign: "center",
+                color: successMsg.includes("successfully") ? "green" : "red",
+                marginBottom: "1.5rem",
+                fontWeight: "500",
+              }}
+            >
+              {successMsg}
+            </p>
+          )}
+
+          <input
+            type="text"
+            name="name"
+            placeholder="Your Name"
+            value={formData.name}
+            onChange={handleChange}
             style={{
-              textAlign: "center",
-              color: successMsg.includes("successfully") ? "green" : "red",
-              marginBottom: "1rem",
-              fontWeight: "500",
+              width: "100%",
+              padding: "1rem",
+              borderRadius: "6px",
+              border: "1px solid #ccc",
+              fontSize: "1rem",
+              marginBottom: "1.5rem",
             }}
-          >
-            {successMsg}
-          </p>
-        )}
+          />
 
-        <form onSubmit={handleSubmit}>
-          <div style={{ marginBottom: "1rem" }}>
-            <input
-              type="text"
-              name="name"
-              placeholder="Your Name"
-              value={formData.name}
-              onChange={handleChange}
-              style={{
-                width: "100%",
-                padding: "0.75rem",
-                borderRadius: "5px",
-                border: "1px solid #ccc",
-                fontSize: "1rem",
-              }}
-            />
-          </div>
+          <input
+            type="email"
+            name="email"
+            placeholder="Your Email"
+            value={formData.email}
+            onChange={handleChange}
+            style={{
+              width: "100%",
+              padding: "1rem",
+              borderRadius: "6px",
+              border: "1px solid #ccc",
+              fontSize: "1rem",
+              marginBottom: "1.5rem",
+            }}
+          />
 
-          <div style={{ marginBottom: "1rem" }}>
-            <input
-              type="email"
-              name="email"
-              placeholder="Your Email"
-              value={formData.email}
-              onChange={handleChange}
-              style={{
-                width: "100%",
-                padding: "0.75rem",
-                borderRadius: "5px",
-                border: "1px solid #ccc",
-                fontSize: "1rem",
-              }}
-            />
-          </div>
-
-          <div style={{ marginBottom: "1rem" }}>
-            <textarea
-              name="message"
-              placeholder="Your Message"
-              value={formData.message}
-              onChange={handleChange}
-              rows="5"
-              style={{
-                width: "100%",
-                padding: "0.75rem",
-                borderRadius: "5px",
-                border: "1px solid #ccc",
-                fontSize: "1rem",
-              }}
-            />
-          </div>
+          <textarea
+            name="message"
+            placeholder="Your Message"
+            value={formData.message}
+            onChange={handleChange}
+            rows="6"
+            style={{
+              width: "100%",
+              padding: "1rem",
+              borderRadius: "6px",
+              border: "1px solid #ccc",
+              fontSize: "1rem",
+              resize: "vertical",
+              marginBottom: "1.5rem",
+            }}
+          />
 
           <button
             type="submit"
             style={{
               width: "100%",
-              padding: "0.75rem",
+              padding: "1rem",
               backgroundColor: "#198754",
               color: "#fff",
               border: "none",
-              borderRadius: "5px",
+              borderRadius: "6px",
               fontSize: "1rem",
+              fontWeight: "500",
               cursor: "pointer",
+              transition: "background-color 0.3s",
             }}
+            onMouseOver={(e) => (e.target.style.backgroundColor = "#157347")}
+            onMouseOut={(e) => (e.target.style.backgroundColor = "#198754")}
           >
             Send Message
           </button>
         </form>
+      </div>
+
+      {/* Right: Environmental Passage */}
+      <div
+        style={{
+          flex: 1,
+          backgroundColor: "#e6f7e6",
+          padding: "4rem",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+        }}
+      >
+        <h2 style={{ color: "#2e7d32", marginBottom: "1rem" }}>Protect Our Planet</h2>
+        <p style={{ fontSize: "1.1rem", lineHeight: "1.6", color: "#333" }}>
+          Every action counts when it comes to preserving our environment. Small steps like
+          reducing waste, conserving water, and planting trees can make a huge difference.
+          Your contribution helps in creating a greener, cleaner, and healthier planet for
+          future generations. Let's work together to reduce our carbon footprint and embrace
+          sustainable living. 🌱
+        </p>
       </div>
     </div>
   );

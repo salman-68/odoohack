@@ -1,10 +1,37 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { CartContext } from "./CartContext";
 
 const CartPage = () => {
-  const { cart, removeFromCart } = useContext(CartContext);
+  const { cart, increaseQuantity, decreaseQuantity } = useContext(CartContext);
+  const navigate = useNavigate();
 
-  const totalPrice = cart.reduce((sum, item) => sum + item.price, 0);
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const [showAddressForm, setShowAddressForm] = useState(false);
+  const [address, setAddress] = useState("");
+  const [orderPlaced, setOrderPlaced] = useState(false);
+
+  // Total price based on quantity
+  const totalPrice = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
+
+  const handleCheckout = () => {
+    if (!currentUser) {
+      navigate("/login");
+    } else {
+      setShowAddressForm(true);
+    }
+  };
+
+  const handleOrderSubmit = () => {
+    if (address.trim() === "") {
+      alert("Please enter your delivery address.");
+      return;
+    }
+    setOrderPlaced(true);
+  };
 
   return (
     <div className="container my-5">
@@ -22,8 +49,8 @@ const CartPage = () => {
       ) : (
         <>
           <div className="row">
-            {cart.map((item, index) => (
-              <div className="col-md-4 col-sm-6 mb-4" key={index}>
+            {cart.map((item) => (
+              <div className="col-md-4 col-sm-6 mb-4" key={item.id}>
                 <div className="card h-100 shadow-sm">
                   <img
                     src={item.img}
@@ -35,13 +62,26 @@ const CartPage = () => {
                     <h5 className="card-title">{item.name}</h5>
                     <p className="card-text">{item.desc}</p>
                     <p className="text-success fw-bold">{item.eco}</p>
-                    <p className="fw-bold">₹{item.price}</p>
-                    <button
-                      className="btn btn-danger mt-auto"
-                      onClick={() => removeFromCart(index)}
-                    >
-                      Remove
-                    </button>
+                    <p className="fw-bold">
+                      ₹{item.price} × {item.quantity} = ₹
+                      {item.price * item.quantity}
+                    </p>
+
+                    <div className="d-flex mt-auto">
+                      <button
+                        className="btn btn-danger me-2"
+                        onClick={() => decreaseQuantity(item.id)}
+                      >
+                        -
+                      </button>
+                      <span className="align-self-center">{item.quantity}</span>
+                      <button
+                        className="btn btn-success ms-2"
+                        onClick={() => increaseQuantity(item.id)}
+                      >
+                        +
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -50,7 +90,40 @@ const CartPage = () => {
 
           <div className="text-center mt-4">
             <h4>Total: ₹{totalPrice}</h4>
-            <button className="btn btn-success mt-2">Proceed to Checkout</button>
+
+            {!showAddressForm && !orderPlaced && (
+              <button
+                className="btn btn-success mt-2"
+                onClick={handleCheckout}
+              >
+                Proceed to Checkout
+              </button>
+            )}
+
+            {showAddressForm && !orderPlaced && (
+              <div className="mt-3">
+                <h5>Enter Delivery Address:</h5>
+                <textarea
+                  className="form-control my-2"
+                  rows="3"
+                  value={address}
+                  onChange={(e) => setAddress(e.target.value)}
+                  placeholder="Your address here..."
+                />
+                <button
+                  className="btn btn-primary mt-2"
+                  onClick={handleOrderSubmit}
+                >
+                  Submit Order
+                </button>
+              </div>
+            )}
+
+            {orderPlaced && (
+              <div className="alert alert-success mt-3">
+                🎉 Your order has been placed! We will deliver soon.
+              </div>
+            )}
           </div>
         </>
       )}

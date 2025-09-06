@@ -21,8 +21,15 @@ const HomePage = () => {
     { title: "Eco Gadgets", desc: "Smart & sustainable tech" },
   ];
 
+  const products = [
+    { name: "Reusable Plate", price: 199, img: "/reusableplate.jpeg" },
+    { name: "Reusable Bag", price: 299, img: "/reusable.jpeg" },
+    { name: "Bag", price: 399, img: "/bag.jpeg" },
+    { name: "Combo", price: 399, img: "/combo.jpeg" },
+  ];
+
   return (
-    <div style={{ overflowX: "hidden", fontFamily: "sans-serif" }}>
+    <div style={{ fontFamily: "sans-serif", overflowX: "hidden", width: "100vw" }}>
       {/* ================= Hero Carousel ================= */}
       <div id="ecoCarousel" className="carousel slide" data-bs-ride="carousel">
         <div className="carousel-inner">
@@ -31,7 +38,7 @@ const HomePage = () => {
               src="/ecobanner.jpg"
               alt="Eco Banner"
               style={{
-                width: "100%",
+                width: "100vw",
                 height: carouselHeight,
                 objectFit: "cover",
                 display: "block",
@@ -42,7 +49,7 @@ const HomePage = () => {
               style={{
                 top: 0,
                 bottom: 0,
-                width: "90%",
+                width: "100%",
                 margin: "0 auto",
                 textAlign: "center",
                 padding: "0 10px",
@@ -59,7 +66,7 @@ const HomePage = () => {
                 Discover eco-friendly products that make a difference.
               </p>
               <Link
-                className="btn btn-success px-4"
+                className="btn btn-success"
                 to="/shop"
                 style={{ borderRadius: "50px", padding: "0.5rem 2rem" }}
               >
@@ -73,7 +80,7 @@ const HomePage = () => {
               src="/ecobanner2.jpg"
               alt="Eco Products"
               style={{
-                width: "100%",
+                width: "100vw",
                 height: carouselHeight,
                 objectFit: "cover",
                 display: "block",
@@ -101,128 +108,226 @@ const HomePage = () => {
       </div>
 
       {/* ================= Categories Section ================= */}
-      <section style={{ textAlign: "center", margin: "3rem 0" }}>
-        <h3 style={{ fontWeight: "700", marginBottom: "2rem" }}>🌱 Shop by Category</h3>
+      <section style={{ width: "100vw", padding: "3rem 0", backgroundColor: "#f8f9fa" }}>
+        <h3 style={{ textAlign: "center", fontWeight: "700", marginBottom: "2rem" }}>
+          🌱 Shop by Category
+        </h3>
         <div
-          className="row"
           style={{
-            marginLeft: 0,
-            marginRight: 0,
-            paddingLeft: "15px",
-            paddingRight: "15px",
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            gap: "1rem",
           }}
         >
           {categories.map((cat, i) => (
-            <div className="col-md-3 col-sm-6" key={i} style={{ marginBottom: "1rem" }}>
-              <div
-                style={{
-                  padding: "1rem",
-                  boxShadow: "0 4px 10px rgba(0,0,0,0.15)",
-                  borderRadius: "10px",
-                  height: "100%",
-                  transition: "transform 0.3s",
-                  cursor: "pointer",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "center",
-                  minHeight: "180px",
-                }}
-                onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
-                onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
-              >
-                <h5 style={{ fontWeight: "700" }}>{cat.title}</h5>
-                <p style={{ color: "#6c757d", marginTop: "0.5rem" }}>{cat.desc}</p>
-              </div>
+            <div
+              key={i}
+              style={{
+                flex: "1 1 220px",
+                maxWidth: "250px",
+                padding: "1rem",
+                boxShadow: "0 4px 10px rgba(0,0,0,0.15)",
+                borderRadius: "10px",
+                textAlign: "center",
+                transition: "transform 0.3s",
+                cursor: "pointer",
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
+              onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+            >
+              <h5 style={{ fontWeight: "700" }}>{cat.title}</h5>
+              <p style={{ color: "#6c757d" }}>{cat.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* ================= Featured Products Section ================= */}
-      {/* ================= Featured Products Section ================= */}
-      <section style={{ margin: "3rem 0" }}>
-      <h3 style={{ textAlign: "center", fontWeight: "700", marginBottom: "2rem" }}>✨ Featured Products</h3>
-      <div
-       className="row"
-        style={{
-      marginLeft: 0,
-      marginRight: 0,
-      paddingLeft: "15px",
-      paddingRight: "15px",
-      }}
-      >
-      {[
-      { name: "Reusable Plate", price: 199, img: "/reusableplate.jpeg" },
-      { name: "Reusable Bag", price: 299, img: "/reusable.jpeg" },
-      { name: "Bag", price: 399, img: "/bag.jpeg" },
-      { name: "Combo", price: 399, img: "/combo.jpeg" },
-      ].map((product, index) => (
-      <div className="col-md-3 col-sm-6" key={index} style={{ marginBottom: "1rem" }}>
+      <section style={{ width: "100vw", padding: "3rem 0" }}>
+        <h3 style={{ textAlign: "center", fontWeight: "700", marginBottom: "2rem" }}>
+          ✨ Featured Products
+        </h3>
         <div
           style={{
-            boxShadow: "0 4px 10px rgba(0,0,0,0.15)",
-            borderRadius: "10px",
-            overflow: "hidden",
             display: "flex",
-            flexDirection: "column",
-            minHeight: "350px",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            gap: "1rem",
           }}
         >
-          <img
-            src={product.img}
-            alt={product.name}
-            style={{
-              width: "100%",
-              height: "200px",
-              objectFit: "cover",
-            }}
-          />
-          <div
-            style={{
-              padding: "1rem",
-              textAlign: "center",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-              flexGrow: 1,
-            }}
-          >
-            <h5>{product.name}</h5>
-            <p style={{ fontWeight: "700", color: "#198754" }}>₹{product.price}</p>
-            <button
+          {products.map((product, index) => (
+            <div
+              key={index}
               style={{
-                width: "100%",
-                backgroundColor: "#198754",
-                color: "#fff",
-                border: "none",
-                padding: "0.5rem",
-                borderRadius: "5px",
-                cursor: "pointer",
+                flex: "1 1 250px",
+                maxWidth: "300px",
+                boxShadow: "0 4px 10px rgba(0,0,0,0.15)",
+                borderRadius: "10px",
+                overflow: "hidden",
+                display: "flex",
+                flexDirection: "column",
+                minHeight: "350px",
               }}
             >
-              Add to Cart
-            </button>
+              <img
+                src={product.img}
+                alt={product.name}
+                style={{
+                  width: "100%",
+                  height: "200px",
+                  objectFit: "cover",
+                }}
+              />
+              <div
+                style={{
+                  padding: "1rem",
+                  textAlign: "center",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "space-between",
+                  flexGrow: 1,
+                }}
+              >
+                <h5>{product.name}</h5>
+                <p style={{ fontWeight: "700", color: "#198754" }}>₹{product.price}</p>
+                <button
+                  style={{
+                    width: "100%",
+                    backgroundColor: "#198754",
+                    color: "#fff",
+                    border: "none",
+                    padding: "0.5rem",
+                    borderRadius: "5px",
+                    cursor: "pointer",
+                  }}
+                >
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ================= Sustainable Living Tips Section ================= */}
+      <section style={{ width: "100vw", padding: "3rem 0", backgroundColor: "#eaf0fb" }}>
+        <h3 style={{ textAlign: "center", fontWeight: "700", marginBottom: "2rem" }}>
+          🌱 Sustainable Living Tips
+        </h3>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            gap: "1rem",
+          }}
+        >
+          {[
+            "Use reusable bags instead of plastic.",
+            "Switch to bamboo toothbrushes.",
+            "Compost organic waste at home.",
+            "Buy energy-efficient appliances.",
+            "Reduce single-use plastics.",
+            "Plant a tree every month."
+          ].map((tip, index) => (
+            <div
+              key={index}
+              style={{
+                flex: "1 1 220px",
+                maxWidth: "250px",
+                padding: "1rem",
+                borderRadius: "10px",
+                backgroundColor: "#fff",
+                boxShadow: "0 4px 10px rgba(0,0,0,0.15)",
+                textAlign: "center",
+              }}
+            >
+              <p style={{ fontWeight: "500", color: "#198754" }}>✅ {tip}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ================= Customer Testimonials Section ================= */}
+      <section style={{ width: "100vw", padding: "3rem 0", backgroundColor: "#f8f9fa" }}>
+        <h3 style={{ textAlign: "center", fontWeight: "700", marginBottom: "2rem" }}>
+          💬 What Our Customers Say
+        </h3>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            gap: "1rem",
+          }}
+        >
+          {[
+            { name: "Anita R.", feedback: "EcoFinds products are amazing! I switched to reusable bags and bamboo brushes." },
+            { name: "Rohit S.", feedback: "High-quality eco products. Great initiative to save our planet." },
+            { name: "Priya M.", feedback: "I love their combos. Sustainable and stylish!" },
+          ].map((testimonial, i) => (
+            <div
+              key={i}
+              style={{
+                flex: "1 1 250px",
+                maxWidth: "300px",
+                padding: "1rem",
+                borderRadius: "10px",
+                backgroundColor: "#fff",
+                boxShadow: "0 4px 10px rgba(0,0,0,0.15)",
+              }}
+            >
+              <p style={{ fontStyle: "italic", color: "#6c757d" }}>"{testimonial.feedback}"</p>
+              <p style={{ fontWeight: "700", marginTop: "1rem" }}>- {testimonial.name}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ================= Eco Impact Section ================= */}
+      <section style={{ width: "100vw", padding: "3rem 0", backgroundColor: "#eaf0fb" }}>
+        <h3 style={{ textAlign: "center", fontWeight: "700", marginBottom: "2rem" }}>
+          🌏 Our Eco Impact
+        </h3>
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            gap: "2rem",
+            textAlign: "center",
+          }}
+        >
+          <div style={{ flex: "1 1 200px", maxWidth: "220px" }}>
+            <h4 style={{ color: "#198754" }}>5000+</h4>
+            <p>Trees Planted</p>
+          </div>
+          <div style={{ flex: "1 1 200px", maxWidth: "220px" }}>
+            <h4 style={{ color: "#198754" }}>12000+</h4>
+            <p>Reusable Bags Distributed</p>
+          </div>
+          <div style={{ flex: "1 1 200px", maxWidth: "220px" }}>
+            <h4 style={{ color: "#198754" }}>3000+</h4>
+            <p>Customers Embracing Sustainability</p>
           </div>
         </div>
-      </div>
-    ))}
-  </div>
-</section>
+      </section>
 
       {/* ================= Why Choose Us Section ================= */}
       <section style={{ backgroundColor: "#f8f9fa", padding: "3rem 0" }}>
         <div style={{ textAlign: "center" }}>
           <h3 style={{ fontWeight: "700", marginBottom: "2rem" }}>💚 Why Choose EcoFinds?</h3>
-          <div className="row" style={{ margin: 0, padding: 0 }}>
-            <div className="col-md-4" style={{ marginBottom: "1rem" }}>
+          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "2rem" }}>
+            <div style={{ flex: "1 1 220px", maxWidth: "250px" }}>
               <h5>🌍 100% Eco-Friendly</h5>
               <p style={{ color: "#6c757d" }}>All products sourced responsibly.</p>
             </div>
-            <div className="col-md-4" style={{ marginBottom: "1rem" }}>
+            <div style={{ flex: "1 1 220px", maxWidth: "250px" }}>
               <h5>✅ Fair Trade</h5>
               <p style={{ color: "#6c757d" }}>Supporting ethical businesses.</p>
             </div>
-            <div className="col-md-4" style={{ marginBottom: "1rem" }}>
+            <div style={{ flex: "1 1 220px", maxWidth: "250px" }}>
               <h5>🚚 Carbon Neutral Shipping</h5>
               <p style={{ color: "#6c757d" }}>Delivered with care for the planet.</p>
             </div>
@@ -286,4 +391,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;  
+export default HomePage;

@@ -2,7 +2,8 @@ import React, { useState, useContext } from "react";
 import { CartContext } from "./CartContext";
 
 const ShoppingPage = () => {
-  const { addToCart } = useContext(CartContext);
+  const { addToCart, increaseQuantity, decreaseQuantity, cart } =
+    useContext(CartContext);
 
   const products = [
     { id: 1, name: "Reusable Plate", price: 199, img: "/reusableplate.jpeg", desc: "Eco-friendly, durable plate.", eco: "Saves 1.5kg CO₂" },
@@ -26,7 +27,8 @@ const ShoppingPage = () => {
     { id: 19, name: "Eco Lamp", price: 999, img: "/lamp.jpg", desc: "Energy-saving lamp.", eco: "Saves 4.5kg CO₂" },
     { id: 20, name: "Eco Chair", price: 1299, img: "/chair.jpg", desc: "Bamboo wooden chair.", eco: "Saves 5.8kg CO₂" },
   ];
-  // ✅ Pagination logic
+
+  // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 8;
   const indexOfLast = currentPage * productsPerPage;
@@ -39,33 +41,58 @@ const ShoppingPage = () => {
       <h2 className="text-center mb-4">🛍 Shop Eco-Friendly Products</h2>
 
       <div className="row">
-        {currentProducts.map((product) => (
-          <div className="col-md-3 col-sm-6 mb-4" key={product.id}>
-            <div className="card h-100 shadow-sm">
-              <img
-                src={product.img}
-                className="card-img-top"
-                alt={product.name}
-                style={{ height: "180px", objectFit: "cover" }}
-              />
-              <div className="card-body d-flex flex-column">
-                <h5 className="card-title">{product.name}</h5>
-                <p className="card-text">{product.desc}</p>
-                <p className="text-success fw-bold">{product.eco}</p>
-                <p className="fw-bold">₹{product.price}</p>
-                <button
-                  className="btn btn-success mt-auto"
-                  onClick={() => addToCart(product)}
-                >
-                  Add to Cart
-                </button>
+        {currentProducts.map((product) => {
+          const cartItem = cart.find((item) => item.id === product.id);
+          const quantity = cartItem ? cartItem.quantity : 0;
+
+          return (
+            <div className="col-md-3 col-sm-6 mb-4" key={product.id}>
+              <div className="card h-100 shadow-sm">
+                <img
+                  src={product.img}
+                  className="card-img-top"
+                  alt={product.name}
+                  style={{ height: "180px", objectFit: "cover" }}
+                />
+                <div className="card-body d-flex flex-column">
+                  <h5 className="card-title">{product.name}</h5>
+                  <p className="card-text">{product.desc}</p>
+                  <p className="text-success fw-bold">{product.eco}</p>
+                  <p className="fw-bold">₹{product.price}</p>
+
+                  <div className="mt-auto d-flex align-items-center">
+                    {quantity > 0 ? (
+                      <>
+                        <button
+                          className="btn btn-danger me-2"
+                          onClick={() => decreaseQuantity(product.id)}
+                        >
+                          -
+                        </button>
+                        <span>{quantity}</span>
+                        <button
+                          className="btn btn-success ms-2"
+                          onClick={() => increaseQuantity(product.id)}
+                        >
+                          +
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        className="btn btn-primary ms-auto"
+                        onClick={() => addToCart(product)}
+                      >
+                        Add to Cart
+                      </button>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
-      {/* Pagination Controls */}
       <div className="d-flex justify-content-center mt-4">
         <nav>
           <ul className="pagination">
