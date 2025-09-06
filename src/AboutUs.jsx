@@ -34,8 +34,7 @@ const AboutUs = () => {
           <div className="row align-items-center">
             <div className="col-md-6 mb-4 mb-md-0">
               <img
-                src="/ourstory.jpg"
-                alt="Our Story"
+                src="/ourstory.jpeg"
                 style={{
                   width: "100%",
                   borderRadius: "15px",
