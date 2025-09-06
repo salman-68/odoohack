@@ -3,6 +3,7 @@ import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import HomePage from "./HomePage";
 import AboutUs from "./AboutUs";
 import AuthPage from "./AuthPage";
+import ContactPage from "./ContactPage";
 
 function App() {
   const navigate = useNavigate();
@@ -39,7 +40,7 @@ function App() {
                 <Link className="nav-link" to="/contact">Login/Signup</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/contact">Contact</Link>
+                <Link className="nav-link" to="/contactus">Contact</Link>
               </li>
 
               {/* User Info / Login */}
@@ -77,6 +78,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/contact" element={<AuthPage />} />
+        <Route path="/contactus" element={<ContactPage />} />
       </Routes>
     </>
   );
