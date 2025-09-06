@@ -11,7 +11,6 @@ const CartPage = () => {
   const [address, setAddress] = useState("");
   const [orderPlaced, setOrderPlaced] = useState(false);
 
-  // Total price based on quantity
   const totalPrice = cart.reduce(
     (sum, item) => sum + item.price * item.quantity,
     0
@@ -33,6 +32,15 @@ const CartPage = () => {
     setOrderPlaced(true);
   };
 
+  // Some sustainability tips to fill blank space
+  const ecoTips = [
+    "Use reusable bags instead of plastic.",
+    "Choose products made from sustainable materials.",
+    "Turn off electrical appliances when not in use.",
+    "Recycle and compost whenever possible.",
+    "Support local eco-friendly businesses.",
+  ];
+
   return (
     <div className="container my-5">
       <h2 className="text-center mb-4">🛒 Your Cart</h2>
@@ -45,6 +53,7 @@ const CartPage = () => {
             style={{ width: "200px", marginBottom: "20px" }}
           />
           <h4>Your cart is empty</h4>
+          <p>Explore our eco-friendly products to make a positive impact on the planet!</p>
         </div>
       ) : (
         <>
@@ -92,10 +101,7 @@ const CartPage = () => {
             <h4>Total: ₹{totalPrice}</h4>
 
             {!showAddressForm && !orderPlaced && (
-              <button
-                className="btn btn-success mt-2"
-                onClick={handleCheckout}
-              >
+              <button className="btn btn-success mt-2" onClick={handleCheckout}>
                 Proceed to Checkout
               </button>
             )}
@@ -125,6 +131,40 @@ const CartPage = () => {
               </div>
             )}
           </div>
+
+          {/* ================= Sustainability Tips Section ================= */}
+          <section className="mt-5" style={{ backgroundColor: "#f8f9fa", padding: "2rem", borderRadius: "10px" }}>
+            <h4 className="text-center mb-4" style={{ color: "#198754" }}>🌱 Sustainability Tips</h4>
+            <ul style={{ maxWidth: "600px", margin: "0 auto", listStyleType: "disc" }}>
+              {ecoTips.map((tip, index) => (
+                <li key={index} style={{ marginBottom: "0.8rem", color: "#6c757d", fontSize: "1rem" }}>
+                  {tip}
+                </li>
+              ))}
+            </ul>
+            <p className="text-center mt-3" style={{ color: "#0d6efd" }}>
+              By following these tips, you can help reduce your environmental footprint!
+            </p>
+          </section>
+
+          {/* ================= Eco Facts Section ================= */}
+          <section className="mt-4" style={{ textAlign: "center" }}>
+            <h4 style={{ color: "#198754" }}>🌍 Fun Eco Facts</h4>
+            <div className="row mt-3" style={{ justifyContent: "center", gap: "1rem" }}>
+              <div style={{ flex: "1 1 200px", maxWidth: "250px", backgroundColor: "#eaf0fb", padding: "1rem", borderRadius: "10px" }}>
+                <h5>5000+</h5>
+                <p>Trees Planted</p>
+              </div>
+              <div style={{ flex: "1 1 200px", maxWidth: "250px", backgroundColor: "#eaf0fb", padding: "1rem", borderRadius: "10px" }}>
+                <h5>12000+</h5>
+                <p>Reusable Bags Distributed</p>
+              </div>
+              <div style={{ flex: "1 1 200px", maxWidth: "250px", backgroundColor: "#eaf0fb", padding: "1rem", borderRadius: "10px" }}>
+                <h5>3000+</h5>
+                <p>Eco-Friendly Customers</p>
+              </div>
+            </div>
+          </section>
         </>
       )}
     </div>

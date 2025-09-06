@@ -28,7 +28,6 @@ const ShoppingPage = () => {
     { id: 20, name: "Eco Chair", price: 1299, img: "/chair.jpg", desc: "Bamboo wooden chair.", eco: "Saves 5.8kg CO₂" },
   ];
 
-  // Pagination
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 8;
   const indexOfLast = currentPage * productsPerPage;
@@ -36,10 +35,20 @@ const ShoppingPage = () => {
   const currentProducts = products.slice(indexOfFirst, indexOfLast);
   const totalPages = Math.ceil(products.length / productsPerPage);
 
+  // Additional content to fill white space
+  const ecoTips = [
+    "Use reusable bags instead of plastic.",
+    "Choose products made from sustainable materials.",
+    "Turn off electrical appliances when not in use.",
+    "Recycle and compost whenever possible.",
+    "Support local eco-friendly businesses.",
+  ];
+
   return (
     <div className="container my-5">
       <h2 className="text-center mb-4">🛍 Shop Eco-Friendly Products</h2>
 
+      {/* Products Grid */}
       <div className="row">
         {currentProducts.map((product) => {
           const cartItem = cart.find((item) => item.id === product.id);
@@ -93,6 +102,7 @@ const ShoppingPage = () => {
         })}
       </div>
 
+      {/* Pagination */}
       <div className="d-flex justify-content-center mt-4">
         <nav>
           <ul className="pagination">
@@ -112,6 +122,40 @@ const ShoppingPage = () => {
           </ul>
         </nav>
       </div>
+
+      {/* ================= Sustainability Tips Section ================= */}
+      <section className="mt-5" style={{ backgroundColor: "#f8f9fa", padding: "2rem", borderRadius: "10px" }}>
+        <h4 className="text-center mb-4" style={{ color: "#198754" }}>🌱 Sustainability Tips</h4>
+        <ul style={{ maxWidth: "600px", margin: "0 auto", listStyleType: "disc" }}>
+          {ecoTips.map((tip, index) => (
+            <li key={index} style={{ marginBottom: "0.8rem", color: "#6c757d", fontSize: "1rem" }}>
+              {tip}
+            </li>
+          ))}
+        </ul>
+        <p className="text-center mt-3" style={{ color: "#0d6efd" }}>
+          By following these tips, you can help reduce your environmental footprint!
+        </p>
+      </section>
+
+      {/* ================= Fun Eco Facts ================= */}
+      <section className="mt-4 mb-5" style={{ textAlign: "center" }}>
+        <h4 style={{ color: "#198754" }}>🌍 Fun Eco Facts</h4>
+        <div className="row mt-3" style={{ justifyContent: "center", gap: "1rem" }}>
+          <div style={{ flex: "1 1 200px", maxWidth: "250px", backgroundColor: "#eaf0fb", padding: "1rem", borderRadius: "10px" }}>
+            <h5>5000+</h5>
+            <p>Trees Planted</p>
+          </div>
+          <div style={{ flex: "1 1 200px", maxWidth: "250px", backgroundColor: "#eaf0fb", padding: "1rem", borderRadius: "10px" }}>
+            <h5>12000+</h5>
+            <p>Reusable Bags Distributed</p>
+          </div>
+          <div style={{ flex: "1 1 200px", maxWidth: "250px", backgroundColor: "#eaf0fb", padding: "1rem", borderRadius: "10px" }}>
+            <h5>3000+</h5>
+            <p>Eco-Friendly Customers</p>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
