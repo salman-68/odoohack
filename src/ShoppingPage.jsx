@@ -1,10 +1,9 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { CartContext } from "./CartContext";
 
 const ShoppingPage = () => {
-  const navigate = useNavigate();
+  const { addToCart } = useContext(CartContext);
 
-  // Sample 20+ products
   const products = [
     { id: 1, name: "Reusable Plate", price: 199, img: "/reusableplate.jpeg", desc: "Eco-friendly, durable plate.", eco: "Saves 1.5kg CO₂" },
     { id: 2, name: "Reusable Bag", price: 149, img: "/reusable.jpg", desc: "Sturdy cloth bag for shopping.", eco: "Saves 2kg CO₂" },
@@ -27,26 +26,18 @@ const ShoppingPage = () => {
     { id: 19, name: "Eco Lamp", price: 999, img: "/lamp.jpg", desc: "Energy-saving lamp.", eco: "Saves 4.5kg CO₂" },
     { id: 20, name: "Eco Chair", price: 1299, img: "/chair.jpg", desc: "Bamboo wooden chair.", eco: "Saves 5.8kg CO₂" },
   ];
-
+  // ✅ Pagination logic
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 8;
-
-  const indexOfLastProduct = currentPage * productsPerPage;
-  const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
-  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
-
+  const indexOfLast = currentPage * productsPerPage;
+  const indexOfFirst = indexOfLast - productsPerPage;
+  const currentProducts = products.slice(indexOfFirst, indexOfLast);
   const totalPages = Math.ceil(products.length / productsPerPage);
-
-  const handleAddToCart = (product) => {
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-    cart.push(product);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    navigate("/cart"); // redirect to cart page
-  };
 
   return (
     <div className="container my-5">
-      <h2 className="text-center mb-4">🛒 Shop Eco Products</h2>
+      <h2 className="text-center mb-4">🛍 Shop Eco-Friendly Products</h2>
+
       <div className="row">
         {currentProducts.map((product) => (
           <div className="col-md-3 col-sm-6 mb-4" key={product.id}>
@@ -64,7 +55,7 @@ const ShoppingPage = () => {
                 <p className="fw-bold">₹{product.price}</p>
                 <button
                   className="btn btn-success mt-auto"
-                  onClick={() => handleAddToCart(product)}
+                  onClick={() => addToCart(product)}
                 >
                   Add to Cart
                 </button>
@@ -74,17 +65,20 @@ const ShoppingPage = () => {
         ))}
       </div>
 
-      {/* Pagination */}
+      {/* Pagination Controls */}
       <div className="d-flex justify-content-center mt-4">
         <nav>
           <ul className="pagination">
-            {Array.from({ length: totalPages }, (_, index) => (
+            {[...Array(totalPages)].map((_, i) => (
               <li
-                key={index}
-                className={`page-item ${currentPage === index + 1 ? "active" : ""}`}
+                key={i}
+                className={`page-item ${currentPage === i + 1 ? "active" : ""}`}
               >
-                <button className="page-link" onClick={() => setCurrentPage(index + 1)}>
-                  {index + 1}
+                <button
+                  className="page-link"
+                  onClick={() => setCurrentPage(i + 1)}
+                >
+                  {i + 1}
                 </button>
               </li>
             ))}

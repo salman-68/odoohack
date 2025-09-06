@@ -1,19 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import HomePage from "./HomePage";
 import AboutUs from "./AboutUs";
 import AuthPage from "./AuthPage";
 import ContactPage from "./ContactPage";
 import ShoppingPage from "./ShoppingPage";
+import CartPage from "./CartPage"; // ✅ Add CartPage
+import { CartContext } from "./CartContext"; // ✅ Import cart context
 
 function App() {
   const navigate = useNavigate();
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const { cart } = useContext(CartContext); // ✅ Access cart to show item count
 
   const handleLogout = () => {
     localStorage.removeItem("currentUser");
     navigate("/auth");
-    window.location.reload(); // Refresh to update navbar
+    window.location.reload(); // Refresh navbar after logout
   };
 
   return (
@@ -46,6 +49,14 @@ function App() {
               </li>
               <li className="nav-item">
                 <Link className="nav-link" to="/contactus">Contact</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link fw-bold" to="/shop">Shop</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link fw-bold" to="/cart">
+                  🛒 Cart {cart.length > 0 && `(${cart.length})`}
+                </Link>
               </li>
 
               {/* User Info / Login */}
@@ -86,6 +97,7 @@ function App() {
         <Route path="/contact" element={<AuthPage />} />
         <Route path="/contactus" element={<ContactPage />} />
         <Route path="/shop" element={<ShoppingPage />} />
+        <Route path="/cart" element={<CartPage />} /> 
       </Routes>
     </>
   );
