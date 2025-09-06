@@ -10,7 +10,6 @@ const HomePage = () => {
     const handleResize = () => {
       setCarouselHeight(window.innerWidth < 768 ? "60vh" : "100vh");
     };
-
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -24,7 +23,7 @@ const HomePage = () => {
 
   return (
     <div style={{ overflowX: "hidden", fontFamily: "sans-serif" }}>
-      {/* ✅ Hero Carousel */}
+      {/* ================= Hero Carousel ================= */}
       <div id="ecoCarousel" className="carousel slide" data-bs-ride="carousel">
         <div className="carousel-inner">
           <div className="carousel-item active">
@@ -49,15 +48,6 @@ const HomePage = () => {
                 padding: "0 10px",
               }}
             >
-              <img
-                src="/ecofindslogo.png"
-                alt="EcoFinds Logo"
-                style={{
-                  width: "400px",
-                  maxWidth: "80%",
-                  marginBottom: "20px",
-                }}
-              />
               <p
                 style={{
                   fontSize: window.innerWidth < 768 ? "1rem" : "1.2rem",
@@ -110,11 +100,9 @@ const HomePage = () => {
         </button>
       </div>
 
-      {/* ✅ Categories Section */}
+      {/* ================= Categories Section ================= */}
       <section style={{ textAlign: "center", margin: "3rem 0" }}>
-        <h3 style={{ fontWeight: "700", marginBottom: "2rem" }}>
-          🌱 Shop by Category
-        </h3>
+        <h3 style={{ fontWeight: "700", marginBottom: "2rem" }}>🌱 Shop by Category</h3>
         <div
           className="row"
           style={{
@@ -125,11 +113,7 @@ const HomePage = () => {
           }}
         >
           {categories.map((cat, i) => (
-            <div
-              className="col-md-3 col-sm-6"
-              key={i}
-              style={{ marginBottom: "1rem" }}
-            >
+            <div className="col-md-3 col-sm-6" key={i} style={{ marginBottom: "1rem" }}>
               <div
                 style={{
                   padding: "1rem",
@@ -143,97 +127,89 @@ const HomePage = () => {
                   justifyContent: "center",
                   minHeight: "180px",
                 }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.transform = "scale(1.05)")
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.transform = "scale(1)")
-                }
+                onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.05)")}
+                onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
               >
                 <h5 style={{ fontWeight: "700" }}>{cat.title}</h5>
-                <p style={{ color: "#6c757d", marginTop: "0.5rem" }}>
-                  {cat.desc}
-                </p>
+                <p style={{ color: "#6c757d", marginTop: "0.5rem" }}>{cat.desc}</p>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ✅ Featured Products Section */}
+      {/* ================= Featured Products Section ================= */}
+      {/* ================= Featured Products Section ================= */}
       <section style={{ margin: "3rem 0" }}>
-        <h3 style={{ textAlign: "center", fontWeight: "700", marginBottom: "2rem" }}>
-          ✨ Featured Products
-        </h3>
+      <h3 style={{ textAlign: "center", fontWeight: "700", marginBottom: "2rem" }}>✨ Featured Products</h3>
+      <div
+       className="row"
+        style={{
+      marginLeft: 0,
+      marginRight: 0,
+      paddingLeft: "15px",
+      paddingRight: "15px",
+      }}
+      >
+      {[
+      { name: "Reusable Plate", price: 199, img: "/reusableplate.jpeg" },
+      { name: "Reusable Bag", price: 299, img: "/reusable.jpeg" },
+      { name: "Bag", price: 399, img: "/bag.jpeg" },
+      { name: "Combo", price: 399, img: "/combo.jpeg" },
+      ].map((product, index) => (
+      <div className="col-md-3 col-sm-6" key={index} style={{ marginBottom: "1rem" }}>
         <div
-          className="row"
           style={{
-            marginLeft: 0,
-            marginRight: 0,
-            paddingLeft: "15px",
-            paddingRight: "15px",
+            boxShadow: "0 4px 10px rgba(0,0,0,0.15)",
+            borderRadius: "10px",
+            overflow: "hidden",
+            display: "flex",
+            flexDirection: "column",
+            minHeight: "350px",
           }}
         >
-          {[1, 2, 3, 4].map((item) => (
-            <div
-              className="col-md-3 col-sm-6"
-              key={item}
-              style={{ marginBottom: "1rem" }}
+          <img
+            src={product.img}
+            alt={product.name}
+            style={{
+              width: "100%",
+              height: "200px",
+              objectFit: "cover",
+            }}
+          />
+          <div
+            style={{
+              padding: "1rem",
+              textAlign: "center",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              flexGrow: 1,
+            }}
+          >
+            <h5>{product.name}</h5>
+            <p style={{ fontWeight: "700", color: "#198754" }}>₹{product.price}</p>
+            <button
+              style={{
+                width: "100%",
+                backgroundColor: "#198754",
+                color: "#fff",
+                border: "none",
+                padding: "0.5rem",
+                borderRadius: "5px",
+                cursor: "pointer",
+              }}
             >
-              <div
-                style={{
-                  boxShadow: "0 4px 10px rgba(0,0,0,0.15)",
-                  borderRadius: "10px",
-                  overflow: "hidden",
-                  display: "flex",
-                  flexDirection: "column",
-                  minHeight: "350px",
-                }}
-              >
-                <img
-                  src={`https://source.unsplash.com/400x300/?eco,product,${item}`}
-                  alt="Product"
-                  style={{
-                    width: "100%",
-                    height: "200px",
-                    objectFit: "cover",
-                  }}
-                />
-                <div
-                  style={{
-                    padding: "1rem",
-                    textAlign: "center",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
-                    flexGrow: 1,
-                  }}
-                >
-                  <h5>Eco Product {item}</h5>
-                  <p style={{ fontWeight: "700", color: "#198754" }}>
-                    ₹{item * 199}
-                  </p>
-                  <button
-                    style={{
-                      width: "100%",
-                      backgroundColor: "#198754",
-                      color: "#fff",
-                      border: "none",
-                      padding: "0.5rem",
-                      borderRadius: "5px",
-                      cursor: "pointer",
-                    }}
-                  >
-                    Add to Cart
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
+              Add to Cart
+            </button>
+          </div>
         </div>
-      </section>
+      </div>
+    ))}
+  </div>
+</section>
 
-      {/* ✅ Why Choose Us Section */}
+      {/* ================= Why Choose Us Section ================= */}
       <section style={{ backgroundColor: "#f8f9fa", padding: "3rem 0" }}>
         <div style={{ textAlign: "center" }}>
           <h3 style={{ fontWeight: "700", marginBottom: "2rem" }}>💚 Why Choose EcoFinds?</h3>
@@ -254,7 +230,7 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* ✅ Newsletter Section */}
+      {/* ================= Newsletter Section ================= */}
       <section style={{ textAlign: "center", margin: "3rem 0" }}>
         <h4 style={{ fontWeight: "700" }}>📩 Subscribe to Our Newsletter</h4>
         <form
@@ -292,7 +268,7 @@ const HomePage = () => {
         </form>
       </section>
 
-      {/* ✅ Footer Section */}
+      {/* ================= Footer ================= */}
       <footer
         style={{
           backgroundColor: "#198754",
@@ -310,4 +286,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default HomePage;  
